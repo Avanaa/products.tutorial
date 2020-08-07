@@ -15,6 +15,9 @@ sap.ui.define([
       const oView = this.getView();
       oView.bindElement({
         path: "/Products(" + iProductId + ")",
+        parameters: {
+          expand: "Supplier,Category"
+        },
         events: {
           dataRequested: function () {
             oView.setBusy(true);
@@ -54,6 +57,15 @@ sap.ui.define([
         message = this.getView().getModel("i18n").getResourceBundle().getText("del.favorite");
       }
       sap.m.MessageToast.show(message);
+    },
+
+    trimSuperfluousBytes: function(sVal){
+      if (typeof sVal === "string") {
+        const sTrimmed = sVal.substr(104);
+        return "data:image/bmp;base64," + sTrimmed;
+      } else {
+        return sVal;
+      }
     }
     
   });

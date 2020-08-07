@@ -1,7 +1,8 @@
- <mvc:View controllerName="tutorial.products.controller.ProductDetail"
+ <mvc:View xmlns:microchart="sap.suite.ui.microchart" controllerName="tutorial.products.controller.ProductDetail"
   displayBlock="true"
   xmlns:uxap="sap.uxap"
   xmlns:layout="sap.ui.layout"
+  xmlns:form="sap.ui.layout.form"
   xmlns="sap.m"
   xmlns:mvc="sap.ui.core.mvc">
     <uxap:ObjectPageLayout id="ProductDetail">
@@ -10,7 +11,7 @@
         <uxap:ObjectPageHeader 
         id="productHeader"
         objectTitle="{ProductName}"
-        objectSubtitle="{ProductID}">
+        objectSubtitle="{Category/CategoryName}">
           <uxap:actions>
             <uxap:ObjectPageHeaderActionButton id="cartButton" icon="sap-icon://cart-3" press="addToCart" tooltip="{i18n>add.to.cart}" />
             <uxap:ObjectPageHeaderActionButton id="favButton" icon="sap-icon://unfavorite" press="addToFav" tooltip="{i18n>add.to.fav}" />
@@ -38,7 +39,50 @@
           <uxap:subSections>
             <uxap:ObjectPageSubSection id="subsectionSupplier">
               <uxap:blocks>
-                <Text text="Supplier" />
+
+                <!-- Info section -->
+                <form:SimpleForm id="formInfo" title="{i18n>company.description}" editable="false" layout="ResponsiveGridLayout">
+                  <form:content>
+                    <Label id="labelCompanyName" text="{i18n>company.name}" labelFor="textCompanyName" />
+                    <Text id="textCompanyName" text="{Supplier/CompanyName}" />
+                    <Label id="labelCompanyWebsite" text="{i18n>company.website}" labelFor="textCompanyWebsite" />
+                    <Link id="linkCompanyWebsite"
+                      text="{= ${Supplier/HomePage}.split('#')[0] }"
+                      href="{= ${Supplier/HomePage}.split('#')[1] }"
+                      target="_blank" />
+                  </form:content>
+                </form:SimpleForm>
+
+                <!-- Address section -->
+                <form:SimpleForm id="formAddress" title="{i18n>address.description}" editable="false" layout="ResponsiveGridLayout">
+                  <form:content>
+                    <Label id="labelCompanyStreet" text="{i18n>address.street}" labelFor="textCompanyStreet" />
+                    <Text id="textCompanyStreet" text="{Supplier/Address}" />
+                    <Label id="labelCompanyCity" text="{i18n>address.city}" labelFor="textCompanyCity" />
+                    <Text id="textCompanyCity" text="{Supplier/City}" />
+                    <Label id="labelCompanyRegion" text="{i18n>address.region}" labelFor="textCompanyRegion" />
+                    <Text id="textCompanyRegion" text="{Supplier/Region}" />
+                    <Label id="labelCompanyCountry" text="{i18n>address.country}" labelFor="textCompanyCountry" />
+                    <Text id="textCompanyCountry" text="{Supplier/Country}" />
+                    <Label id="labelCompanyPostalCode" text="{i18n>address.postal.code}" labelFor="textCompanyPostalCode" />
+                    <Text id="textCompanyPostalCode" text="{Supplier/PostalCode}" />
+                  </form:content>
+                </form:SimpleForm>
+
+                <!-- Contact section -->
+                <form:SimpleForm id="formContact" title="{i18n>contact.description}" editable="false" layout="ResponsiveGridLayout">
+                  <form:content>
+                    <Label id="labelCompanyContact" text="{i18n>contact.title}" labelFor="textCompanyContact" />
+                    <Text id="textCompanyContact" text="{Supplier/ContactTitle}" />
+                    <Label id="labelCompanyContactName" text="{i18n>contact.name}" labelFor="textCompanyContactName" />
+                    <Text id="textCompanyContactName" text="{Supplier/ContactName}" />
+                    <Label id="labelCompanyPhone" text="{i18n>contact.phone}" labelFor="textCompanyPhone" />
+                    <Text id="textCompanyPhone" text="{Supplier/Phone}" />
+                    <Label id="labelCompanyFax" text="{i18n>contact.fax}" labelFor="textCompanyFax" />
+                    <Text id="textCompanyFax" text="{Supplier/Fax}" />
+                  </form:content>
+                </form:SimpleForm>
+
               </uxap:blocks>
             </uxap:ObjectPageSubSection>
           </uxap:subSections>
@@ -48,7 +92,16 @@
           <uxap:subSections>
             <uxap:ObjectPageSubSection id="subsectionCategory">
               <uxap:blocks>
-                <Text text="Category" />
+                <form:SimpleForm id="formCategory" title="{i18n>category.description}" editable="false" layout="ResponsiveGridLayout">
+                  <form:content>
+                    <Label id="labelCategoryName" text="{i18n>category.name}" labelFor="textCategoryName"/>
+                    <Text id="textCategoryName" text="{Category/Name}" />
+                    <Label id="labelCategoryDescription" text="{i18n>description}" labelFor="textCategoryDescription"/>
+                    <Text id="textCategoryDescription" text="{Category/Description}" />
+                    <Label id="labelCategoryImg" text="{i18n>picture}" labelFor="imgCategory" />
+                    <Image id="imgCategory" src="{ path : 'Category/Picture', formatter : '.trimSuperfluousBytes' }" busyIndicatorSize="Large" />
+                  </form:content>
+                </form:SimpleForm>
               </uxap:blocks>
             </uxap:ObjectPageSubSection>
           </uxap:subSections>

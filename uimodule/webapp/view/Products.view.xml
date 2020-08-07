@@ -18,6 +18,7 @@
 			entitySet="Products"
 			header="Products" 
 			showRowCount="true" 
+			expandFields="Category"
 			showFullScreenButton="true" 
 			enableAutoBinding="true">
 
